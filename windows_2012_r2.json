@@ -1,6 +1,36 @@
 {
   "builders": [
     {
+        "name": "qemu",
+        "type": "qemu",
+        "format":"qcow2",
+        "accelerator": "kvm",
+        "iso_url": "{{user `iso_url`}}",
+        "iso_checksum_type": "{{user `iso_checksum_type`}}",
+        "iso_checksum": "{{user `iso_checksum`}}",
+        "headless": true,
+        "boot_wait": "2m",
+        "disk_size": 61440,
+        "disk_interface":"virtio",
+        "ssh_username": "vagrant",
+        "ssh_password": "vagrant",
+        "ssh_wait_timeout": "6h",
+        "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+        "floppy_files": [
+          "floppy/drivers/virtio-win-0.1.117/viostor/2k12R2/amd64/*",
+          "floppy/drivers/virtio-win-0.1.117/NetKVM/2k12R2/amd64/*",
+          "{{user `autounattend`}}",
+          "./scripts/microsoft-updates.bat",
+          "./scripts/win-updates.ps1",
+          "./scripts/openssh.ps1",
+          "./scripts/oracle-cert.cer"
+        ],
+        "qemuargs": [
+            [ "-m", "4048M" ],
+            [ "-cpu", "Westmere" ]
+        ]
+    },
+    {
       "type": "vmware-iso",
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
