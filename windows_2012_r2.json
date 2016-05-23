@@ -8,8 +8,8 @@
         "iso_url": "{{user `iso_url`}}",
         "iso_checksum_type": "{{user `iso_checksum_type`}}",
         "iso_checksum": "{{user `iso_checksum`}}",
-        "headless": true,
         "boot_wait": "2m",
+        "headless": "true",
         "disk_size": 61440,
         "disk_interface":"virtio",
         "ssh_username": "vagrant",
@@ -27,7 +27,7 @@
         ],
         "qemuargs": [
             [ "-m", "4048M" ],
-            [ "-cpu", "Westmere" ]
+            [ "-smp", "2"]
         ]
     },
     {
